@@ -5,5 +5,16 @@ class Tutorial
     @difficulty = difficulty
   end
 
+  def name
+    @name
+  end
+
+  def type
+    @type
+  end
+
+  def difficulty
+    @difficulty
+  end
+
   def is_harder_than?(tutorial)
-    
