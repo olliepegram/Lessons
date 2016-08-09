@@ -39,6 +39,11 @@ puts "Email: #{john.email_acc}"
 puts "Address: #{john.address}"
 puts "Contact: #{john.contact}"
 john.account.balance > 1 ? color = :blue : color = :red
-print "Balance: "
-print Paint[john.account.balance, color]
+original_balance = john.account.balance
+expenses = Random.rand(0..90000)
+after_balance = john.account.balance - expenses
+puts "Original Balance: #{original_balance}"
+puts "Expenses: #{expenses}"
+print "Remaining Balance: "
+print Paint[after_balance, color]
 puts ""
