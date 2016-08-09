@@ -18,10 +18,11 @@ class Tutorial
   end
 
   def is_harder_than?(tutorial)
+    @tutorial = tutorial
     difficulties = {:easy => 1, :medium => 2, :hard => 3, :advanced => 4, :expert => 5}
 
-    if type != type[tutorial]
-      puts "You cannot compare a Ruby with a JavaScript tutorial"
+    if type != @tutorial.type
+      puts "You cannot compare a #{type} with a #{@tutorial.type} tutorial"
       elsif difficulties[difficulty] > difficulties[tutorial.difficulty]
         puts true
       else
