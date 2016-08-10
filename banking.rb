@@ -31,19 +31,44 @@ puts "What's your contact?"
 contact = gets.chomp
 system('clear')
 
-john = Customer.new(name, Bank_account.new(Random.rand(-100000..100000)), email_acc, address, contact)
+filename = 'balance.txt'
+txt = open(filename, 'r+')
+number = File.read(filename).to_i
+
+john = Customer.new(name, Bank_account.new(number), email_acc, address, contact)
 
 puts "Hello #{john.name}, this is your bank account:"
 puts "=" * 40
 puts "Email: #{john.email_acc}"
 puts "Address: #{john.address}"
 puts "Contact: #{john.contact}"
-john.account.balance > 1 ? color = :blue : color = :red
-original_balance = john.account.balance
-expenses = Random.rand(0..90000)
-after_balance = john.account.balance - expenses
-puts "Original Balance: #{original_balance}"
-puts "Expenses: #{expenses}"
-print "Remaining Balance: "
-print Paint[after_balance, color]
+#john.account.balance > 1 ? color = :blue : color = :red
+
+print "Balance: "
+print john.account.balance
 puts ""
+
+puts "=" * 40
+puts "Would you like to: "
+puts "1. Withdraw"
+puts "2. Disposit?"
+answer = gets.chomp.to_i
+
+
+if answer == 1
+  withdraw = 20
+  puts "Withdrawing #{withdraw} from your account"
+  john.account.balance = number - withdraw
+  puts "You now have #{john.account.balance} left in your account."
+elsif answer == 2
+  deposit = 20
+  puts "Depositing #{deposit} into your account"
+  john.account.balance = number + deposit
+  puts "You now have #{john.account.balance} in your account."
+else
+  puts "Error try again."
+end
+
+txt.write(john.account.balance)
+txt.rewind
+txt.close
