@@ -51,23 +51,21 @@ puts ""
 puts "=" * 40
 puts "Would you like to: "
 puts "1. Withdraw"
-puts "2. Disposit?"
+puts "2. Disposit"
+puts "3. Exit"
 answer = gets.chomp.to_i
 
-
-if answer == 1
-  withdraw = 20
-  puts "Withdrawing #{withdraw} from your account"
-  john.account.balance = number - withdraw
-  puts "You now have #{john.account.balance} left in your account."
-elsif answer == 2
-  deposit = 20
-  puts "Depositing #{deposit} into your account"
-  john.account.balance = number + deposit
-  puts "You now have #{john.account.balance} in your account."
-else
-  puts "Error try again."
-end
+  if answer == 1
+    withdraw = 20
+    puts "Withdrawing #{withdraw} from your account"
+    john.account.balance = number - withdraw
+    puts "You now have #{john.account.balance} left in your account."
+  elsif answer == 2
+    deposit = 20
+    puts "Depositing #{deposit} into your account"
+    john.account.balance = number + deposit
+    puts "You now have #{john.account.balance} in your account."
+  end
 
 txt.write(john.account.balance)
 txt.rewind
