@@ -21,6 +21,10 @@ class People
   #   end
   end
 
+  def heart_attack
+    @calc1 = 150 * @weight
+  end
+
   def cups
     @cup = 1
     @calc = 80
@@ -35,13 +39,6 @@ class Coffee
   end
   attr_accessor :type, :milk
 
-end
-
-class Frequency
-  def initialize(safe, heart_attack)
-    @safe = safe
-    @heart_attack = heart_attack
-  end
 end
 
 def mainMenu
@@ -61,13 +58,26 @@ def mainMenu
   @hours = gets.chomp.to_i
   puts "How much do you weigh?"
   @weight = gets.chomp.to_i
+  system('clear')
+  puts "What route would you like to go?"
+  puts "1. Safe route(recommened)"
+  puts "2. Heart attack route"
+  @route = gets.chomp
 end
 
 mainMenu
 guy = People.new(@userName, @userJob, Coffee.new(@coffee, "soy"), @hours, @weight)
 
-if @userJob == '1'
-  puts "You can have #{guy.calculate * 1.5}mg of caffine within #{@hours} hours."
-else @userJob == '2'
-  guy.calculate
+if @route == '1'
+  if @userJob == '1'
+    puts "You can have #{guy.calculate * 1.5}mg of caffine within #{@hours} hours."
+  else @userJob == '2'
+    puts "You can have #{guy.calculate}mg of caffine withing #{@hours} hours."
+  end
+elsif @route == '2'
+  if @userJob == '1'
+    puts "You can have #{guy.heart_attack * 1.5}mg of caffine within #{@hours} hours."
+  else @userJob == '2'
+    puts "You can have #{guy.heart_attack}mg of caffine withing #{@hours} hours."
+  end
 end
