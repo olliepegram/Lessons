@@ -1,44 +1,25 @@
 require 'artii'
+require 'paint'
+ASCII = Artii::Base.new
 
-ASCII = Artii::Base.new :font => 'slant'
 class People
-  def initialize(name, job, preference, hours_productive, weight)
+  def initialize(name, job, hours_productive, weight)
     @name = name
     @job = job
-    @preference = preference
     @hours_productive = hours_productive
     @weight = weight
-    @calc = calc
-    @cup = cup
   end
-  attr_accessor :name, :job, :preference, :hours_productive, :weight, :calc, :cup
-
-  def calculate
-    @calc = 4 * @weight
-
-  #   for i in 1 do
-  #     break if i == 80
-  #   end
-  end
-
-  def heart_attack
-    @calc1 = 150 * @weight
-  end
-
-  def cups
-    @cup = 1
-    @calc = 80
-
-  end
+  attr_accessor :name, :job, :hours_productive, :weight
 end
 
-class Coffee
-  def initialize(type, milk)
-    @type = type
-    @milk = milk
-  end
-  attr_accessor :type, :milk
+#if route equals heartattack then make the calculation 150 x weight, else times by 4.
+def calculation(route)
+  route == :heartattack ? quantity = 150 * @weight : quantity = 4 * @weight
+end
 
+#Takes the result from the calculation and divides by 80.
+def calculate_cups(quantity)
+  (quantity / 80).round
 end
 
 def mainMenu
@@ -48,36 +29,38 @@ def mainMenu
   puts "First of all let me ask you a couple of questions:"
   puts "What's your name?"
   @userName = gets.chomp
+  system('clear')
   puts "What's your job?"
   puts "1. Developer"
   puts "2. Everyone else"
   @userJob = gets.chomp
-  puts "What type of coffee do you drink?"
-  @coffee = gets.chomp
+  system('clear')
   puts "How many hours will you be needing to be productive today?"
   @hours = gets.chomp.to_i
+  system('clear')
   puts "How much do you weigh?"
   @weight = gets.chomp.to_i
   system('clear')
   puts "What route would you like to go?"
-  puts "1. Safe route(recommened)"
-  puts "2. Heart attack route"
+  puts "1. #{Paint['Safe route(recommened)', :blue]}"
+  puts "2. #{Paint['Heart attack route', :red]}"
   @route = gets.chomp
 end
 
 mainMenu
-guy = People.new(@userName, @userJob, Coffee.new(@coffee, "soy"), @hours, @weight)
+guy = People.new(@userName, @userJob, @hours, @weight)
 
-if @route == '1'
-  if @userJob == '1'
-    puts "You can have #{guy.calculate * 1.5}mg of caffine within #{@hours} hours."
-  else @userJob == '2'
-    puts "You can have #{guy.calculate}mg of caffine withing #{@hours} hours."
+  # if they choose route 1 then load safe route calculation, if not load heartattack.
+  @route == '1' ? mills = calculation(:safe) : mills = calculation(:heartattack)
+  #If they choose route 1 then then use the blue color, if not use the red color.
+  @route == '1' ? colour = :blue : colour = :red
+
+  #if they pick 1 for their job then the calculation is multiplied by 1.5.
+  @userJob == 1 ? multiplier = 1.5 : multiplier = 1
+  puts "You can have: #{Paint[mills * multiplier, colour]} mg of caffine or #{Paint[calculate_cups(mills), colour]} coffee cups within #{Paint[@hours, colour]} hours."
+
+  calculate_cups(mills).times do
+    print Paint["COFFEE!!".center(rand(0..150)), Paint.random, :bright]
+    sleep(0.4)
+
   end
-elsif @route == '2'
-  if @userJob == '1'
-    puts "You can have #{guy.heart_attack * 1.5}mg of caffine within #{@hours} hours."
-  else @userJob == '2'
-    puts "You can have #{guy.heart_attack}mg of caffine withing #{@hours} hours."
-  end
-end
