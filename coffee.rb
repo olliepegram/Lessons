@@ -57,10 +57,18 @@ guy = People.new(@userName, @userJob, @hours, @weight)
 
   #if they pick 1 for their job then the calculation is multiplied by 1.5.
   @userJob == 1 ? multiplier = 1.5 : multiplier = 1
-  puts "You can have: #{Paint[mills * multiplier, colour]} mg of caffine or #{Paint[calculate_cups(mills), colour]} coffee cups within #{Paint[@hours, colour]} hours."
+  system('clear')
+  puts "\n"
+  puts "So, #{Paint[@userName, :green]}, here is your coffee intake for the day: "
+  puts "You can have: "
+  puts "#{Paint[mills * multiplier, colour]} mg of caffine"
+  puts "#{Paint[calculate_cups(mills), colour]} coffee cups"
+  puts "within #{Paint[@hours, colour]} hours."
 
-  calculate_cups(mills).times do
-    print Paint["COFFEE!!".center(rand(0..150)), Paint.random, :bright]
-    sleep(0.4)
-
+  if @route == '2'
+    sleep(3)
+    calculate_cups(mills).times do
+      print Paint["COFFEE!!".center(rand(0..150)), Paint.random, :bright]
+      sleep(0.3)
+    end
   end
