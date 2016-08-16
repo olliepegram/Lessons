@@ -62,11 +62,11 @@ guy = Person.new(@userName, @userJob, @hours, @weight)
   puts "So, #{Paint[@userName, :green]}, here is your coffee intake for the day: "
   puts "You can have: "
   sleep(0.7)
-  puts "#{Paint[mills * multiplier, colour]} mg of caffine"
+  puts "  #{Paint[mills * multiplier, colour]} mg of caffine or,"
   sleep(0.7)
-  puts "#{Paint[calculate_cups(mills), colour]} coffee cups"
+  puts "  #{Paint[calculate_cups(mills), colour]} coffee cups"
   sleep(0.7)
-  puts "within #{Paint[@hours, colour]} hours."
+  puts "  within #{Paint[@hours, colour]} hours."
   puts "\n"
 
   if @route == '2'
@@ -74,7 +74,7 @@ guy = Person.new(@userName, @userJob, @hours, @weight)
     puts "Incoming heart attack!"
     sleep(1)
     calculate_cups(mills).times do
-      print Paint["COFFEE".center(rand(0..120)), Paint.random, Paint.random(true), :bright]
+      print Paint["COFFEE".center(rand(0..120)), Paint.random, :bright]
       sleep(0.3)
     end
   end
