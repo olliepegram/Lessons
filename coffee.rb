@@ -68,6 +68,16 @@ guy = Person.new(@userName, @userJob, @hours, @weight)
   sleep(0.7)
   puts "  within #{Paint[@hours, colour]} hours."
   puts "\n"
+  sleep(3)
+  puts "How many coffee cups have you had so far?"
+  cups = gets.chomp.to_i
+  if cups == calculate_cups(mills)
+    puts "Nice!"
+  elsif cups <= calculate_cups(mills)
+    puts "You have #{Paint[calculate_cups(mills) - cups, colour]} cups left to have."
+  else cups > calculate_cups(mills)
+    puts "You've had #{Paint[cups, colour]} cups too many!"
+  end
 
   if @route == '2'
     sleep(3)
